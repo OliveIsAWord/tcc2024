@@ -9,9 +9,11 @@ tcc2024.img: $(FXF_FILES) image/startup.bat
 	for file in $^; do $(RYFS) add $@ $$file; done
 
 image/%.fxf: src/%.asm
+	@mkdir -p image
 	$(FOX32ASM) $< $@
 
 image/startup.bat: $(FXF_FILES)
+	@mkdir -p image
 	echo $(FXF_FILES) | awk '{ \
 	for(i=1; i<=NF; i++) { \
 		sub(/^image\//, "", $$i); \
